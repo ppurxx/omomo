@@ -2,118 +2,68 @@ import React, {useState,useEffect,useRef} from 'react';
 import Hashtag from "./Hashtag";
 
 function InputBox(){
-  const inputTextRef = React.createRef();
-  const [inputText,setInputText] = useState('');
-  const [modifiedHashtagText, setModifiedHashtagText] = useState();
-  const [filteredHashtagList,setFilteredHashtagList] = useState([]);
+  const [wishItem, setWishItem] = useState();
+  const inputText = useRef();
+  const [hashtagList, setHashtagList] = useState([]);
+  let inputMode = useRef();
+  const hashtagAssign = useRef();
 
+  const INPUT_MODE = {
+    WISHITEM : 'WISHITEM',
+    HASHTAG : 'HASHTAG'
+  }
   useEffect(()=>{
-    filterHashtag(modifiedHashtagText);
+    if(inputMode.current===INPUT_MODE.WISHITEM || inputMode.current===undefined){
+      inputMode.current = INPUT_MODE.WISHITEM;
+      hashtagAssign.current.style.display="none";
+    }else{
+      hashtagAssign.current.style.display="block";
+    }
 
-        const strListSplit = inputText.split('#');
-        const wishItem = strListSplit[0];
-        const hashTagList = strListSplit.slice(1,strListSplit.length);
+  });
 
-        if(inputText.length>0&&validateInputText(wishItem,hashTagList)){
-          modifyHashtagText();
-        }
-      },
-      []
+  const onChangeInputText = (e)=>{
+    const inputWords = e.target.value;
+    const inputWord = inputWords.charAt(inputWords.length-1);
+
+    if (inputMode.current === INPUT_MODE.WISHITEM){
+      if(inputWord === '#') {
+        inputMode.current = INPUT_MODE.HASHTAG;
+        setWishItem(e.target.value.substr(0, inputWords.length - 1));
+        inputText.current.value = '';
+      }else if(inputWords.length===0){
+        console.log('asdfasdf');
+      }
+    } else if (inputMode.current === INPUT_MODE.HASHTAG &&
+        inputWord === '#') {
+      setHashtagList(hashtagList.concat(inputWords.substr(0,inputWords.length-1)));
+      inputText.current.value ='';
+    }
+  }
+
+  const onKeyDownInputText = (e)=>{
+    if(e.keyCode===8 &&
+        inputText.current.value===''){
+      setHashtagList(hashtagList.splice(0,hashtagList.length-1));
+    }else if(e.keyCode===13){
+      e.target.value='#';
+      onChangeInputText(e);
+    }
+  }
+
+  return(
+    <>
+      {wishItem}
+      {hashtagList.map((hashtag,index)=>(
+          <Hashtag onClick={() => {alert(hashtag)}} hashtagText={hashtag} key={index}/>
+      ))}
+      <div ref={hashtagAssign}>#</div>
+      <input ref={inputText} type={"text"}
+             onChange={onChangeInputText}
+             onKeyDown={onKeyDownInputText}
+      />
+    </>
   );
-
-  const filterHashtag = (modifiedHashtagText)=>{
-    //@@TODO find matchingHashTag from back-end by modifiedHashtagText
-    setFilteredHashtagList(['맛집','맛집2','맛집3','맛집55','맛집55','맛집55']);
-
-  }
-
-  const modifyHashtagText = (hashtag)=>{
-    const cursorIndex = inputTextRef.current.selectionEnd;
-    const startIndex = findStartIndexOfModifiedHashtag(cursorIndex);
-    const endIndex = findEndIndexOfModifiedHashtag(cursorIndex);
-
-    let modifiedHashtag;
-
-    if(hashtag!==''){
-      modifiedHashtag = hashtag;
-    }else{
-      modifiedHashtag = inputText.substr(startIndex,endIndex-startIndex-1).replace(' ','');
-    }
-
-    console.log(1+inputText.substr(0,startIndex));
-    console.log(2+inputText.substr(hashtag));
-    console.log(3+inputText.substr(endIndex,inputText.length));
-    let res = inputText.substr(0,startIndex).concat(modifiedHashtag).concat(inputText.substr(endIndex,inputText.length));
-    setInputText(res);
-    setModifiedHashtagText(modifiedHashtag);
-
-
-
-
-  }
-
-  const findEndIndexOfModifiedHashtag = (cursorIndex) =>{
-    let lastIndex = cursorIndex;
-
-    for(let i=cursorIndex;i<=inputText.length;i++){
-      if(inputText.charAt(lastIndex)==='#'){
-        break;
-      }
-      lastIndex++;
-    }
-    return lastIndex;
-  }
-
-  const findStartIndexOfModifiedHashtag = (cursorIndex)=>{
-    let startPosition = cursorIndex;
-    for(let i=cursorIndex;i>=0;i--){
-      startPosition--;
-      if(inputText.charAt(startPosition)==='#'){
-        break;
-      }
-    }
-    return startPosition;
-  }
-
-
-  const validateInputText = (wishItem,hashTagList) =>{
-    if(!hashTagList.length)return false;
-    if(wishItem===""){
-      alert('insert wishItem name!!!');
-      return false;
-    }else{
-      return true;
-    }
-  }
-
-  const saveInputText = () => {
-  //   const strListSplitted = inputText.split('#');
-  //   const wishItem = strListSplitted[0];
-  //   const hashTagList = strListSplitted.slice(1,strListSplitted.length);
-  //
-  //   //TODO call api address with wishItem & hashTagList
-  }
-
-  const onChangeInputText = (e) =>{
-    setInputText(e.target.value);
-  }
-
-  function clickHashtag(hashtag){
-    modifyHashtagText(hashtag);
-  }
-
-
-    return(
-      <>
-        <div>
-          {filteredHashtagList.map((hashtag,index)=>(
-              <Hashtag onClick={() => {clickHashtag(hashtag)}} hashtagText={hashtag} inputText={inputText} setInputText={setInputText} key={index}/>
-          ))}
-        </div>
-        <input ref={inputTextRef} type={"text"} onChange={onChangeInputText} value={inputText}/>
-        <input type={"button"} onClick={saveInputText} value={"save"}/>
-      </>
-    );
 }
 
 export default InputBox;
