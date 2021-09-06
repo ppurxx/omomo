@@ -35,7 +35,7 @@ public class WishItemController {
 
     @ApiOperation(httpMethod = POST_METHOD, value = "wish item 저장", produces = "application/json", consumes = "application/json")
     @PostMapping
-    public ResponseEntity<Integer> createWishItem(@RequestBody WishItem wishItem) {
+    public ResponseEntity<WishItem> createWishItem(@RequestBody WishItem wishItem) {
         L.debug("[{}] /api/v1/wishitem/", POST_METHOD);
         return ResponseEntity.ok(wishItemService.createWishItem(wishItem));
     }

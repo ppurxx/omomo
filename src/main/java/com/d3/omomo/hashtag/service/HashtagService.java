@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class HashtagService {
-  public final HashTagRepository hashTagRepository;
+  private final HashTagRepository hashTagRepository;
 
   public List<HashTag> getHashtagListByKeyword(String searchHashtagKeyword){
     return hashTagRepository.findByHashTagNameStartsWith(searchHashtagKeyword);

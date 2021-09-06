@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface WishItemService {
     List<WishItem> getWishItemList(String userId);
-    int createWishItem(WishItem wishItem);
+    WishItem createWishItem(WishItem wishItem);
     int updateWishItem(WishItem wishItem);
     int updateWishItemToCompletion(WishItem wishItem);
     int deleteWishItem(String wishItemNo);
