@@ -1,6 +1,7 @@
 package com.d3.omomo.wishitem.service;
 
 import com.d3.omomo.wishitem.entity.WishItem;
+import com.d3.omomo.wishitem.entity.WishItemDto;
 import com.d3.omomo.wishitem.repository.WishItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Required;
@@ -19,17 +20,17 @@ public class WishItemServiceImpl implements WishItemService{
     }
 
     @Override
-    public WishItem createWishItem(WishItem wishItem) {
-        return wishItemRepository.save(wishItem);
+    public WishItem createWishItem(WishItemDto wishItemDto) {
+        return wishItemRepository.save(wishItemDto.toEntity());
     }
 
     @Override
-    public int updateWishItem(WishItem wishItem) {
+    public int updateWishItem(WishItemDto wishItemDto) {
         return 0;
     }
 
     @Override
-    public int updateWishItemToCompletion(WishItem wishItem) {
+    public int updateWishItemToCompletion(WishItemDto wishItemDto) {
         return 0;
     }
 

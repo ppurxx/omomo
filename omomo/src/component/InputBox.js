@@ -100,6 +100,39 @@ const InputBox = () =>{
     );
   };
 
+  const postButtonClickHandler = () =>{
+    const hashTagRegEx = /#[a-zA-Z0-9가-힣]+/;
+    const requestData = matchRegExAll(inputValue, hashTagRegEx);
+    if(requestData){
+      //call creation api
+    }else{
+      alert('해쉬태그를 달 대상에 공백이 포함되어있거나 여러개임');
+    }
+  }
+
+  const matchRegExAll = (targetString, regEx) =>{
+    let result = [];
+    let count = 0;
+    while(regEx.test(targetString)){
+      const matchedString = regEx.exec(targetString)[0];
+      result.push(matchedString);
+      targetString = targetString.replace(matchedString,'');
+      count ++;
+      if(count>5)break;
+    }
+
+    targetString = targetString.trim();
+    if(targetString.indexOf(' ')>0){
+      return null;
+    }
+
+    return {
+      hashTagList : result,
+      wishItem : targetString
+    };
+  }
+
+
   return(
     <>
       <div className={"input-box"}>
@@ -112,7 +145,7 @@ const InputBox = () =>{
           value={inputValue}
           ref={inputValueRef}
           onChange={inputValueChangeHandler}/>
-      <input type={"button"} value={"전송"} onClick={}/>
+      <input type={"button"} value={"전송"} onClick={postButtonClickHandler}/>
       </div>
     </>
   );
