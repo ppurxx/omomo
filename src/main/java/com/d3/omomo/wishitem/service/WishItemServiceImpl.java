@@ -1,5 +1,6 @@
 package com.d3.omomo.wishitem.service;
 
+import com.d3.omomo.hashtag.service.HashtagService;
 import com.d3.omomo.wishitem.entity.WishItem;
 import com.d3.omomo.wishitem.entity.WishItemDto;
 import com.d3.omomo.wishitem.repository.WishItemRepository;
@@ -14,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WishItemServiceImpl implements WishItemService{
     private final WishItemRepository wishItemRepository;
+    private final HashtagService hashtagService;
     @Override
     public List<WishItem> getWishItemList(String userId) {
         return Collections.emptyList();
@@ -21,6 +23,7 @@ public class WishItemServiceImpl implements WishItemService{
 
     @Override
     public WishItem createWishItem(WishItemDto wishItemDto) {
+        hashtagService.saveHashtagList(wishItemDto.getHashTagList());
         return wishItemRepository.save(wishItemDto.toEntity());
     }
 

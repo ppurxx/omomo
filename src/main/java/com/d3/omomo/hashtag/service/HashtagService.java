@@ -17,5 +17,9 @@ public class HashtagService {
     return hashTagRepository.findByHashTagNameStartsWith(searchHashtagKeyword);
   }
 
+  public void saveHashtagList(List<HashTag> hashTagList){
+    hashTagRepository.saveAll(hashTagList);
+  }
+
 
 }

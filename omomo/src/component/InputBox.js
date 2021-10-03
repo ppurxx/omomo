@@ -2,7 +2,9 @@ import React, {useState,useEffect,useRef} from 'react';
 import TagSelector from "./TagSelector";
 import "./InputBox.css";
 import Hashtag from "./Hashtag";
+import Axios from 'axios';
 
+//@TODO : improve making request data(wishitem & hashtaglist) now, make hashtag list through regEx and trim hashtags, and if the data trimed has more two space then error alert
 const InputBox = () =>{
   const [inputValue,setInputValue] = useState('');
   const inputValueRef = useRef();
@@ -18,15 +20,9 @@ const InputBox = () =>{
         currentInputValue.value.length>1
         ){
 
-      fetch('api/v1/hashtag?searchHashtagKeyword='+encodeURIComponent(currentInputValue.value),{
-        method: "GET",
-        headers: {
-          'Content-type': 'application/json'
-        }
-      })
-      .then(res => res.json())
+      Axios.get('api/v1/hashtag?searchHashtagKeyword='+encodeURIComponent(currentInputValue.value))
       .then(response => {
-        setTagList(response.map(item=>item.hashTagName));
+        setTagList(response.data.map(item=>item.hashTagName));
       });
     }else{
       setTagList([]);
@@ -105,6 +101,16 @@ const InputBox = () =>{
     const requestData = matchRegExAll(inputValue, hashTagRegEx);
     if(requestData){
       //call creation api
+      console.log(requestData);
+
+      Axios.post('api/v1/wishitem',{
+        userId:'nick', //@@TODO : after apply security, change this to token & id
+        wishItemText: requestData.wishItem,
+        wishItemCompletion: false,
+        hashTagList: requestData.hashTagList
+      }).then(response =>{
+        alert(response);
+      });
     }else{
       alert('해쉬태그를 달 대상에 공백이 포함되어있거나 여러개임');
     }
