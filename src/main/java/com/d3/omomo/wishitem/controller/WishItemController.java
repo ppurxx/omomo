@@ -1,6 +1,7 @@
 package com.d3.omomo.wishitem.controller;
 
 import com.d3.omomo.wishitem.entity.WishItem;
+import com.d3.omomo.wishitem.entity.WishItemDto;
 import com.d3.omomo.wishitem.service.WishItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,23 +36,23 @@ public class WishItemController {
 
     @ApiOperation(httpMethod = POST_METHOD, value = "wish item 저장", produces = "application/json", consumes = "application/json")
     @PostMapping
-    public ResponseEntity<Integer> createWishItem(@RequestBody WishItem wishItem) {
+    public ResponseEntity<WishItem> createWishItem(@RequestBody WishItemDto wishItemDto) {
         L.debug("[{}] /api/v1/wishitem/", POST_METHOD);
-        return ResponseEntity.ok(wishItemService.createWishItem(wishItem));
+        return ResponseEntity.ok(wishItemService.createWishItem(wishItemDto));
     }
 
     @ApiOperation(httpMethod = PATCH_METHOD, value = "wish item 수정 (텍스트, 해시태그)", produces = "application/json", consumes = "application/json")
     @PatchMapping
-    public ResponseEntity<Integer> updateWishItem(@RequestBody WishItem wishItem) {
+    public ResponseEntity<Integer> updateWishItem(@RequestBody WishItemDto wishItemDto) {
         L.debug("[{}] /api/v1/wishitem/", PATCH_METHOD);
-        return ResponseEntity.ok(wishItemService.updateWishItem(wishItem));
+        return ResponseEntity.ok(wishItemService.updateWishItem(wishItemDto));
     }
 
     @ApiOperation(httpMethod = PATCH_METHOD, value = "wish item 완료처리", produces = "application/json", consumes = "application/json")
     @PatchMapping("/completion")
-    public ResponseEntity<Integer> updateWishItemToCompletion(@RequestBody WishItem wishItem) {
+    public ResponseEntity<Integer> updateWishItemToCompletion(@RequestBody WishItemDto wishItemDto) {
         L.debug("[{}] /api/v1/wishitem/completion", POST_METHOD);
-        return ResponseEntity.ok(wishItemService.updateWishItem(wishItem));
+        return ResponseEntity.ok(wishItemService.updateWishItem(wishItemDto));
     }
 
     @ApiOperation(httpMethod = DELETE_METHOD, value = "wish item 삭제", produces = "application/json", consumes = "application/json")

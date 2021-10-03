@@ -1,0 +1,24 @@
+.input_text_box{
+  width:85%;
+  background-color: #F9F9F9;
+  border: transparent;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.input_text_box:focus{
+  background-color: #F9F9F9;
+  outline: none;
+}
+
+.input-box{
+  width:100%;
+  background-color:#F9F9F9;
+}
+
+.tag-selector{
+  margin:auto;
+  width:90%;
+  background-color : #F9F9F9;
+  padding: 15px;
+  display: none;
+}

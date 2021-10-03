@@ -1,5 +1,6 @@
-.tagSelectorBody{
-  height:50px;
-  width:100%;
-  background-color : grey;
+.tag-selector{
+  margin:auto;
+  width:90%;
+  background-color : #F9F9F9;
+  padding: 15px;
 }
