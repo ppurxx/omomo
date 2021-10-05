@@ -1,0 +1,24 @@
+.tag_button{
+  background-color: #FFFFFF;
+  border:none;
+  border-radius:10px;
+  color:#000000;
+  text-align:center;
+  font-size:12px;
+  padding: 3px 6px 2px 6px;
+  margin:5px;
+  float:left;
+  margin-right:0.2%;
+  /* appearance: auto;
+  user-select: none;
+  white-space: pre;
+  align-items: flex-start;
+  text-align: center;
+  cursor: default;
+  color: -internal-light-dark(black, white);
+  box-sizing: border-box;
+  padding: 1px 6px; */
+}
+.tag_button:hover{
+  background-color:  #99B3D4;
+}
