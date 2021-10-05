@@ -18,23 +18,39 @@ function ListBox() {
   },[])
 
   const buildWishItemListBoxJSX = () => {
-    return wishItemList.map((wishItem, i) =>
+    let previousDate = '';
+    return wishItemList.map((wishItem, i) => {
+      const curDate = wishItem.modifiedDateTime.substring(0,10);
+      if(previousDate === curDate){
+        return <>
         <WishItem
-            key={i}
+            key={wishItem.wishItemNo}
             wishItemNo={wishItem.wishItemNo}
             wishItemText={wishItem.wishItemText}
-            wishItemCompletion = {wishItem.wishItemCompletion}
-            hashTagList = {wishItem.hashTagList}
-        />);
+            wishItemCompletion={wishItem.wishItemCompletion}
+            hashTagList={wishItem.hashTagList}
+        /> </>;
+      }else{
+        previousDate = curDate;
+        return <>
+          <div key={i} className="date">{curDate}</div>
+          <WishItem
+              key={wishItem.wishItemNo}
+              wishItemNo={wishItem.wishItemNo}
+              wishItemText={wishItem.wishItemText}
+              wishItemCompletion={wishItem.wishItemCompletion}
+              hashTagList={wishItem.hashTagList}
+          />
+        </>;
+      }
+    });
   };
 
   return(
       <>
         <div className="wishlist">
           <div style={{display: 'inline-block', width:'100%'}}>
-            <div className="date">aaa</div>
             {buildWishItemListBoxJSX()}
-
           </div>
         </div>
       </>

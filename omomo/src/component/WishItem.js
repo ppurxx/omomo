@@ -5,9 +5,8 @@ const WishItem = (props) =>{
   const {wishItemNo, wishItemText, wishItemCompletion, hashTagList} = props;
 
   const buildHashTagListJSX = () =>{
-    console.log(hashTagList);
     return hashTagList.map(hashTag =>
-      <input className="wishitem_tag_button" type="button" value={hashTag.hashTagName}/>
+      <input key={hashTag.hashTagName} className="wishitem_tag_button" type="button" value={hashTag.hashTagName}/>
     )
   }
 
