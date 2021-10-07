@@ -1,0 +1,101 @@
+.wishlist{
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+
+.date{
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: #C4C4C4;
+  font-size: 12px;
+  margin: 40px 0px;
+}
+
+.date::before,
+.date::after {
+  content: "";
+  flex-grow: 1;
+  background: #C4C4C4;
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 6px;
+}
+
+.wishitem{
+  display:flex;
+  flex-direction:column;
+  margin-top: 24px;
+}
+
+.checkbox-container{
+  display:flex;
+  align-items: center;
+  height:24px;
+}
+
+.wishitem input[type="checkbox"] {
+  width:0px;
+  height:0px;
+  padding:o;
+  margin:-1px 0 0 2px;
+  overflow:hidden;
+  clip:react(0,0,0,0);
+  border:o;
+}
+
+.wishitem-text{
+  margin-left:4px;
+  /* background: green; */
+}
+
+.wishitem input[type="checkbox"] + label:before{
+  margin-top:2px;
+  content:'';
+  width: 20px;
+  height: 20px;
+  display:inline-block;
+  border: 1px solid #5A82B6;
+  border-radius:20px;
+}
+
+.wishitem input[type="checkbox"]:checked + label:before{
+  margin-top:2px;
+  content:'';
+  width:20px;
+  height:20px;
+  background: #5A82B6;
+  border: none;
+  border-radius:20px;
+  cursor:pointer;
+  display:inline-block;
+  border: 1px solid #5A82B6;
+}
+
+
+.wishitem_tag_button{
+  background-color: #E5E5E5;
+  border:none;
+  border-radius:10px;
+  color:#000000;
+  text-align:center;
+  font-size:12px;
+  padding: 3px 6px 2px 6px;
+  margin-left:2px;
+}
+
+.wishitem_tag_bar{
+  padding-left: 25px;
+  margin-top: 4px;
+
+}
+/* change the color of checkbox when checked */
+.checkbox-container:checked + .labelcheck span {
+  color: lightgray;
+}
+/* .wishitem input[type="checkbox"]:checked + span:before{
+    color: lightgray;
+} */
+

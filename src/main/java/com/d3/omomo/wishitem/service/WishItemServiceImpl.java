@@ -5,7 +5,7 @@ import com.d3.omomo.wishitem.entity.WishItem;
 import com.d3.omomo.wishitem.entity.WishItemDto;
 import com.d3.omomo.wishitem.repository.WishItemRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Required;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -18,7 +18,7 @@ public class WishItemServiceImpl implements WishItemService{
     private final HashtagService hashtagService;
     @Override
     public List<WishItem> getWishItemList(String userId) {
-        return Collections.emptyList();
+        return wishItemRepository.findAllByUserId(userId, Sort.by(Sort.Direction.ASC,"modifiedDateTime"));
     }
 
     @Override
