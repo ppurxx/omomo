@@ -1,10 +1,12 @@
 import React from 'react';
 import './Header.css';
+import TagBar from "./TagBar";
 
 function Header(){
   return(
       <>
         <header>
+        <search-box>
         <div className="search_box_wrap">
           <div className="search_text_wrap">
             <input className="search_text" type="text" placeholder="여기에 입력"/>
@@ -15,6 +17,8 @@ function Header(){
         </div>
 
         <div className="menuicon">icon</div>
+        </search-box>
+        <TagBar/>
         </header>
       </>
     );

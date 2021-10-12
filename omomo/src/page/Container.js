@@ -12,10 +12,9 @@ function Container() {
       <>
         <Header/>
         <main>
-          <TagBar/>
           <ListBox/>
-          <InputBox/>
         </main>
+        <InputBox/>
       </>
   );
 }
