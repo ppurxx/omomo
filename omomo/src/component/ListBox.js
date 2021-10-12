@@ -17,9 +17,12 @@ function ListBox() {
     getWishItemListByUserId();
   },[])
 
+
+
   const buildWishItemListBoxJSX = () => {
     let previousDate = '';
-    return wishItemList.map((wishItem, i) => {
+    return wishItemList.sort((a,b)=>a.modifiedDateTime>b.modifiedDateTime?0:1)
+    .map((wishItem, i) => {
       const curDate = wishItem.modifiedDateTime.substring(0,10);
       if(previousDate === curDate){
         return <>

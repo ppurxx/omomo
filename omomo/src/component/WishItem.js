@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './WishItem.css';
 
 const WishItem = (props) =>{
   const {wishItemNo, wishItemText, wishItemCompletion, hashTagList} = props;
+  const [isCompleted, setIsCompleted] = useState(props.wishItemCompletion);
 
   const buildHashTagListJSX = () =>{
     return hashTagList.map(hashTag =>
@@ -10,11 +11,15 @@ const WishItem = (props) =>{
     )
   }
 
+  const completionButtonClickHandler = (e) =>{
+    setIsCompleted(!isCompleted);
+  }
+
   return <>
     <div className="wishitem">
       <div className="checkbox-container">
-        <input type="checkbox" id="wi1"/>
-        <label htmlFor="wi1"></label><span
+        <input type="checkbox" id={wishItemNo} checked={isCompleted} onClick={completionButtonClickHandler}/>
+        <label htmlFor={wishItemNo}></label><span
           className="wishitem-text">{wishItemText}</span>
       </div>
       <div className="wishitem_tag_bar">
