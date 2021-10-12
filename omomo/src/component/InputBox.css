@@ -13,7 +13,9 @@
 .input-box{
   width:100%;
   background-color:#F9F9F9;
-  position: absolute;
+  position: fixed;
+  left:0;
+  bottom:0;
 }
 
 .tag-selector{

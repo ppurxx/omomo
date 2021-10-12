@@ -1,0 +1,10 @@
+main{
+  display: flex;
+  max-width: 480px;
+  min-height: 400px;
+  flex-direction: column;
+  justify-content: center;
+  background-color: white;
+  display: flex;
+  height: 100%;
+}
