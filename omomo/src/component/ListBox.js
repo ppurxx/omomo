@@ -1,21 +1,47 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import Axios from 'axios';
 import WishItem from "./WishItem.js";
 
 function ListBox() {
   const [wishItemList, setWishItemList] = useState([]);
+  const [lastPageNumber, setLastPageNumber] = useState(0);
+  const wishlistRef = useRef(null);
+  const innerListBox = useRef(null);
+  const [lastScrollTop, setLastScrollTop] = useState(0);
   const getWishItemListByUserId = () => {
     //@@TODO : after apply security module, have to change token & loginUserId
     const userId = 'nick';
-    Axios.get('api/v1/wishitem/'+userId)
+    Axios.get('api/v1/wishitem/'+userId+'/'+lastPageNumber)
     .then(response => {
-      setWishItemList(response.data);
-    })
+      if(response.data.length>0){
+        setWishItemList(response.data.reverse().concat(wishItemList));
+      }
+    });
+
+
   };
+
+  const handleScroll = () =>{
+    if(wishlistRef.current.scrollTop === 0 && lastPageNumber!==0){
+      getWishItemListByUserId();
+      setLastPageNumber(lastPageNumber+1);
+    }
+  }
 
   useEffect(()=>{
     getWishItemListByUserId();
-  },[])
+  },[]);
+
+  useEffect(()=>{
+    if(lastPageNumber===0 && wishItemList.length>0){
+      wishlistRef.current.scrollTo(0,10000);
+      setLastPageNumber(lastPageNumber+1);
+    }
+    // console.log(wishlistRef.current.scrollHeight+','+wishlistRef.current.clientHeight+','+lastScrollTop);
+    wishlistRef.current.scrollTo(0,wishlistRef.current.scrollHeight - wishlistRef.current.clientHeight - lastScrollTop);
+    setLastScrollTop(wishlistRef.current.scrollTop+lastScrollTop);
+
+  },[wishItemList]);
 
 
 
@@ -52,8 +78,10 @@ function ListBox() {
   return(
       <>
         <div className="wishlist">
-          <div style={{display: 'inline-block', width:'100%'}}>
-            {buildWishItemListBoxJSX()}
+          <div style={{display: 'inline-block', width:'100%' , height:'100%',  overflow: 'scroll'}} ref={wishlistRef} onScroll={handleScroll}>
+            <div ref={innerListBox}>
+              {buildWishItemListBoxJSX()}
+            </div>
           </div>
         </div>
       </>

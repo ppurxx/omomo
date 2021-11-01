@@ -28,10 +28,10 @@ public class WishItemController {
     }
 
     @ApiOperation(httpMethod = GET_METHOD, value = "wish item 전부 조회")
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<WishItem>> getWishItemList(@PathVariable String userId) {
-        L.debug("[{}] /api/v1/wishitem/{}", GET_METHOD, userId);
-        return ResponseEntity.ok(wishItemService.getWishItemList(userId));
+    @GetMapping("/{userId}/{pageNumber}")
+    public ResponseEntity<List<WishItem>> getWishItemList(@PathVariable String userId, @PathVariable int pageNumber) {
+        L.debug("[{}] /api/v1/wishitem/{}/{}", GET_METHOD, userId,pageNumber);
+        return ResponseEntity.ok(wishItemService.getWishItemList(userId,pageNumber));
     }
 
     @ApiOperation(httpMethod = POST_METHOD, value = "wish item 저장", produces = "application/json", consumes = "application/json")

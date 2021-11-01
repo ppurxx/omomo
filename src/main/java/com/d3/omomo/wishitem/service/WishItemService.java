@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface WishItemService {
-    List<WishItem> getWishItemList(String userId);
+    List<WishItem> getWishItemList(String userId, int pageNumber);
     WishItem createWishItem(WishItemDto wishItemDto);
     int updateWishItem(WishItemDto wishItemDto);
     int updateWishItemToCompletion(WishItemDto wishItemDto);

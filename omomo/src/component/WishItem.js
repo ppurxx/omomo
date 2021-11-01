@@ -18,7 +18,7 @@ const WishItem = (props) =>{
   return <>
     <div className="wishitem">
       <div className="checkbox-container">
-        <input type="checkbox" id={wishItemNo} checked={isCompleted} onClick={completionButtonClickHandler}/>
+        <input type="checkbox" id={wishItemNo} checked={isCompleted} onChange={completionButtonClickHandler}/>
         <label htmlFor={wishItemNo}></label><span
           className="wishitem-text">{wishItemText}</span>
       </div>

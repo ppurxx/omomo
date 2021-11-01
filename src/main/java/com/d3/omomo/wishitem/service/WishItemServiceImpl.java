@@ -5,10 +5,10 @@ import com.d3.omomo.wishitem.entity.WishItem;
 import com.d3.omomo.wishitem.entity.WishItemDto;
 import com.d3.omomo.wishitem.repository.WishItemRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -17,8 +17,9 @@ public class WishItemServiceImpl implements WishItemService{
     private final WishItemRepository wishItemRepository;
     private final HashtagService hashtagService;
     @Override
-    public List<WishItem> getWishItemList(String userId) {
-        return wishItemRepository.findAllByUserId(userId, Sort.by(Sort.Direction.ASC,"modifiedDateTime"));
+    public List<WishItem> getWishItemList(String userId, int pageNumber) {
+        return wishItemRepository.findAllByUserId(userId, PageRequest
+            .of(pageNumber, 10, Sort.by(Sort.Direction.DESC, "modifiedDateTime")));
     }
 
     @Override
